@@ -5,9 +5,14 @@ import cartData from './Data'
 function Cart(props){
     const [data,setData] = useState(cartData)
     const [count,setCount] = useState(Array(cartData.length).fill(1))
+    
+    const price = cartData.map((e)=>{
+        return e.price
+    })
 
     useEffect(()=>{
         props.getCount(count)
+        props.getPrice(price)
     },[])
 
     return(

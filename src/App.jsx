@@ -6,14 +6,21 @@ import Report from './Report'
 
 function App() {
   const [count,setCount] = useState([])
+  const [price,setPrice] = useState([])
+  
   function getCount(count){
     setCount(count)
   }
+
+  function getPrice(price){
+    setPrice([price])
+  }
+
   return (
     <>
       <Nav count={count}/>
-      <Cart getCount={getCount}/>
-      <Report count={count}/>
+      <Cart getCount={getCount} getPrice={getPrice}/>
+      <Report count={count} price={price}/>
     </>
   )
 }
