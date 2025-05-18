@@ -84,3 +84,9 @@ img{
   font-size: 25px;
   font-weight: 400;
 }
+.notfound{
+  font-family: 'Kanit';
+  font-size: 45px;
+  margin-top: 30px;
+  font-weight: 400;
+}

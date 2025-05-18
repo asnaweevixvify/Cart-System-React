@@ -8,11 +8,21 @@ function Cart(props){
     const price = cartData.map((e)=>{
         return e.price
     })
+    const [hide,showHide] = useState(false)
 
     useEffect(()=>{
         props.getCount(count)
         props.getPrice(price)
     },[])
+
+    useEffect(()=>{
+        const newCount = count.filter((e,index)=>{
+            return e===0
+        })
+        if(newCount.length === cartData.length){
+            showHide(true)
+        }
+    },[count])
 
     return(
         <div className="cart-container">
@@ -25,8 +35,11 @@ function Cart(props){
                     <li>ลบรายการ</li>
                 </ul>
             </div>
+            {hide && <h1 className='notfound'>ไม่มีสินค้า</h1>}
             {data.map((item, index) => {
-                if (count[index] === 0) return null;
+                if (count[index] === 0){
+                    return null
+                }
 
                 return (
                     <div className="list-container" key={index}>
@@ -52,6 +65,7 @@ function Cart(props){
                             </li>
                         </ul>
                     </div>
+                    
                 );
             })}
 
