@@ -5,22 +5,14 @@ import cartData from './Data'
 function Cart(props){
     const [data,setData] = useState(cartData)
     const [count,setCount] = useState(Array(cartData.length).fill(1))
-    const [delIndex,setDelIndex] = useState([])
     const price = cartData.map((e)=>{
         return e.price
     })
 
     useEffect(()=>{
-        const delItem = count.map((e, index) => (e === 0 ? index : null))
-        .filter(index => index !== null);
-        setDelIndex(delItem)
-    },[count])
-
-    useEffect(()=>{
         props.getCount(count)
         props.getPrice(price)
     },[])
-
 
     return(
         <div className="cart-container">
