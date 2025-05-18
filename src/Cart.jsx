@@ -5,15 +5,22 @@ import cartData from './Data'
 function Cart(props){
     const [data,setData] = useState(cartData)
     const [count,setCount] = useState(Array(cartData.length).fill(1))
-    
+    const [delIndex,setDelIndex] = useState([])
     const price = cartData.map((e)=>{
         return e.price
     })
 
     useEffect(()=>{
+        const delItem = count.map((e, index) => (e === 0 ? index : null))
+        .filter(index => index !== null);
+        setDelIndex(delItem)
+    },[count])
+
+    useEffect(()=>{
         props.getCount(count)
         props.getPrice(price)
     },[])
+
 
     return(
         <div className="cart-container">
@@ -26,23 +33,36 @@ function Cart(props){
                     <li>ลบรายการ</li>
                 </ul>
             </div>
-            {data.map((e,index)=>{
-                return(
+            {data.map((item, index) => {
+                if (count[index] === 0) return null;
+
+                return (
                     <div className="list-container" key={index}>
-                        <ul className='list'>
-                            <li><img src={e.url}></img></li>
-                            <li>{e.name}</li>
-                            <li>{e.price}</li>
-                            <li className='count-container'>
-                                <i className="fa-solid fa-minus fa-xs" onClick={()=>decrease(index)}></i>
-                                <h4>{count[index]}</h4>
-                                <i className="fa-solid fa-plus fa-xs" onClick={()=>increase(index)}></i>
+                        <ul className="list">
+                            <li>
+                                <img src={item.url} alt={item.name} />
                             </li>
-                            <li><i className="fa-solid fa-minus fa-lg del"></i></li>
+                            <li>{item.name}</li>
+                            <li>{item.price}</li>
+                            <li className="count-container">
+                                <i
+                                    className="fa-solid fa-minus fa-xs"
+                                    onClick={() => decrease(index)}
+                                ></i>
+                                <h4>{count[index]}</h4>
+                                <i
+                                    className="fa-solid fa-plus fa-xs"
+                                    onClick={() => increase(index)}
+                                ></i>
+                            </li>
+                            <li>
+                                <i className="fa-solid fa-minus fa-lg del"></i>
+                            </li>
                         </ul>
                     </div>
-                )
+                );
             })}
+
         </div>
     )
 

@@ -7,6 +7,7 @@ import Report from './Report'
 function App() {
   const [count,setCount] = useState([])
   const [price,setPrice] = useState([])
+  const [delIndex,setDelIndex] = useState([])
   
   function getCount(count){
     setCount(count)
@@ -19,8 +20,8 @@ function App() {
   return (
     <>
       <Nav count={count}/>
-      <Cart getCount={getCount} getPrice={getPrice}/>
-      <Report count={count} price={price}/>
+      <Cart getCount={getCount} getPrice={getPrice} />
+      <Report count={count} price={price} />
     </>
   )
 }
