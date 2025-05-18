@@ -61,7 +61,8 @@ function Cart(props){
                                 ></i>
                             </li>
                             <li>
-                                <i className="fa-solid fa-minus fa-lg del"></i>
+                                <i className="fa-solid fa-minus fa-lg del"
+                                onClick={()=>delBtn(index)}></i>
                             </li>
                         </ul>
                     </div>
@@ -81,6 +82,12 @@ function Cart(props){
     function decrease(i){
         const newCount = [...count]
         newCount[i] = newCount[i]-1
+        setCount(newCount)
+        props.getCount(newCount)
+    }
+    function delBtn(index){
+        const newCount = [...count]
+        newCount[index] = 0
         setCount(newCount)
         props.getCount(newCount)
     }
